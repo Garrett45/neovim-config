@@ -56,8 +56,9 @@ return {
                 'vimls',
                 'rust_analyzer',
                 'csharp_ls',
-                'eslint',
-                'sqls'
+                'eslint', -- provides linting in react projects
+                'tsgo', -- is the actual meat and potatoes behind most stuff being supported
+                'sqls',
             })
         end,
     },

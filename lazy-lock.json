@@ -10,7 +10,7 @@
   "mini.indentscope": { "branch": "main", "commit": "065c7713fb4cd0124fe1462f15f27feeb8b04406" },
   "mini.pick": { "branch": "main", "commit": "8521fe21df86e08d9e4b3c3f3a7d50e47954e1af" },
   "mini.statusline": { "branch": "main", "commit": "8c3829d4ef02b693f68e43fc131b433f11049b2b" },
-  "nvim-lspconfig": { "branch": "master", "commit": "d8bf4c47385340ab2029402201d4d7c9f99f437a" },
+  "nvim-lspconfig": { "branch": "master", "commit": "0203a9608d63eda57679b01e69f33a7b4c34b0d1" },
   "nvim-treesitter": { "branch": "main", "commit": "5cb05e1b0fa3c469958a2b26f36b3fe930af221c" },
   "oil-git.nvim": { "branch": "main", "commit": "6c92acdbae04dce8a4a2302c3a5dd264bd337456" },
   "oil.nvim": { "branch": "master", "commit": "0fcc83805ad11cf714a949c98c605ed717e0b83e" }

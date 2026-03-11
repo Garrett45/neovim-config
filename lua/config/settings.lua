@@ -22,3 +22,4 @@ vim.opt.ignorecase = true -- make commands case insensitive
 vim.opt.termguicolors = true -- give us the full color range
 
 vim.opt.foldlevel = 99 -- all folds should be open by default
+vim.o.incsearch = true -- turn on search to work like old incsearch plugin
