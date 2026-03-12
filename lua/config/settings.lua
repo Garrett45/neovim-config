@@ -22,4 +22,5 @@ vim.opt.ignorecase = true -- make commands case insensitive
 vim.opt.termguicolors = true -- give us the full color range
 
 vim.opt.foldlevel = 99 -- all folds should be open by default
+vim.o.signcolumn = 'yes' -- always show signcolumn so no layout shift for errors 
 vim.o.incsearch = true -- turn on search to work like old incsearch plugin

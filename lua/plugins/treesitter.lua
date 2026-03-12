@@ -8,8 +8,6 @@ return {
             require('nvim-treesitter').install({
                 'c',
                 'lua',
-                'vim',
-                'vimdoc',
                 'query',
                 'rust',
                 'c_sharp',
@@ -17,6 +15,7 @@ return {
                 'typescript',
                 'jsx',
                 'tsx',
+                'go',
                 'sql',
             })
 
@@ -25,13 +24,13 @@ return {
                 pattern = {
                     'c',
                     'lua',
-                    'vim',
                     'rs',
                     'cs',
                     'js',
                     'ts',
-                    'jsx',
-                    'tsx',
+                    'javascriptreact',
+                    'typescriptreact',
+                    'go',
                     'sql',
                 },
                 callback = function()

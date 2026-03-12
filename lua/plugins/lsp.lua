@@ -51,13 +51,13 @@ return {
 
             -- enable all LSPs you want in config
             vim.lsp.enable({
-                'ccls',
+                'clangd',
                 'lua_ls',
-                'vimls',
                 'rust_analyzer',
-                'csharp_ls',
+                'roslyn_ls',
                 'eslint', -- provides linting in react projects
                 'tsgo', -- is the actual meat and potatoes behind most stuff being supported
+                'gopls', -- add in go support
                 'sqls',
             })
         end,

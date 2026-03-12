@@ -38,7 +38,31 @@ So, these are the goals of my config:
 
 * A C compiler in your path (this is kind of required for Rust anyway, so this shouldn't be a big deal)
 
-* (OPTIONAL) LSPs for all languages listed in `lsp.lua` (if you decide not to install these, you will not have LSP support)
+* `git` >= 2.19.0 in your path
+
+* (OPTIONAL) [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep) for faster file and pattern search from picker
+  
+  * [sharkdp/fd](https://github.com/sharkdp/fd) can be used as an alternative. This will be fallen back to if installed instead of ripgrep (but only works for file search). If both are installed, ripgrep will be used
+  
+  * If neither of these are installed, git is used for file searching and grepping
+
+* (OPTIONAL) LSPs for all languages listed in `lsp.lua` (if you decide not to install these, you will not have LSP support for the specific language that LSP covers. These LSPs need to be installed globally on your path so nvim can access it)
+  
+  * [clangd lsp](https://clangd.llvm.org/installation.html) - for C/C++ development
+  
+  * [lua-language-server](https://github.com/luals/lua-language-server) - for lua development (important for messing with this config)
+  
+  * [rust-analyzer](https://github.com/rust-lang/rust-analyzer) - for Rust development
+  
+  * [roslyn](https://github.com/dotnet/roslyn) - for C#/.NET development. Omisharp is outdated and not performant, csharp_ls has less features than both despite better performance. Tying into the official compiler for .NET makes the most sense to me. Not the simplest to install will probably need to use the [instructions on the nvim-lspconfig all configs page](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#roslyn_ls) to install it properly. Have been considering adding [seblyng/roslyn.nvim](https://github.com/seblyng/roslyn.nvim) for even better .NET support
+  
+  * eslint - The [instructions on the nvim-lspconfig all configs page](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#eslint) recommend installing all of [hrsh7th/vscode-langservers-extracted](https://github.com/hrsh7th/vscode-langservers-extracted). I'd agree with this advice, though it means you're not just installing the eslint server
+  
+  * [typescript-go lsp](https://github.com/microsoft/typescript-go) - we may have eslint, but that only provides basic support for normal linting. This is the meat and potatoes of linting for most JavaScript/TypeScript development experiences
+  
+  * [gopls](https://github.com/golang/tools/tree/master/gopls) - the official lsp for go
+  
+  * [sqls](https://github.com/sqls-server/sqls) - still actively being developed, but provides some decent support for writing SQL in neovim. May be removed at some point, as I don't really write SQL in neovim, but it's here for now. [Kurren123/mssql.nvim](https://github.com/Kurren123/mssql.nvim) might be interesting to add since I do work with SQL server a good amount, but its not exactly supported
 
 ### Installing `tree-sitter-cli` on Windows
 
@@ -58,7 +82,7 @@ pacman -S mingw-w64-ucrt-x86_64-clang
 
 In any case, assuming you installed MSYS2 to the default location of `C:\msys64` you will then need to add `C:\msys64\ucrt64\bin` to your path. Finally, you can run the following command (the environment variable is because `rquickjs` won't be able to determine where clang is by default, you could add that environment variable as well)
 
-```bash
+```powershell
 $env:LIBCLANG_PATH="C:\msys64\ucrt64\bin"; cargo install tree-sitter-cli
 ```
 
@@ -101,5 +125,31 @@ You will need to do the following things to add a new language to the editor (an
 2. Go to `lsp.lua` and it to the enable list based off whats in their [all configs list](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md). Add in extra configurations there if required
 
 3. Go to `treesitter.lua` and add it to the install command and auto command based off what's in their [supported languages list](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/SUPPORTED_LANGUAGES.md)
+   
+   1. Note, when adding the filetype to the auto command, be careful about what you list. For example, the filetype name for `jsx` is `javascriptreact` and the filetype name for `tsx` is `typescriptreact`. Ironically, the best way to find the right file type name for the language is to look in the lsp all configs list
 
 4. After a restart, you should now be good to go
+
+Note: in the case that there is not language support for your LSP, you can still install the LSP and write the config yourself, it's just more annoying to do
+
+Also, here is a [helpful LSP guide](https://vonheikemen.github.io/devlog/tools/neovim-lsp-client-guide/) that explains how to use everything out of the box
+
+## Future Plugins in Consideration
+
+This list consolidates plugins that look interesting to me that may one day make the cut. I mention them throughout the README, but this lists them in one place so I can look at all the prime contenders
+
+* [seblyng/roslyn.nvim](https://github.com/seblyng/roslyn.nvim) - better .NET support if needed. Depends how happy I am with the current .NET support
+
+* [Kurren123/mssql.nvim](https://github.com/Kurren123/mssql.nvim) - for more specific SQL server support if needed, but I'm not sure how much DB development I'll do in neovim, and this isn't the best supported plugin
+
+* [kndndrj/nvim-dbee](https://github.com/kndndrj/nvim-dbee) - for better db support in neovim. Just like the one above, though, how much DB development am I doing in neovim, and how actively is this really maintained?
+
+* Some option for reading LSP diagnostics easier
+  
+  * [folke/trouble.nvim](https://github.com/folke/trouble.nvim) - pretty nice one I've used before. However, it has nicer integrations with Telescope and fzf-lua. mini pick is not as supported, and that is my main picker. Even so, this would still work well and is nice
+  
+  * [nvim-mini/mini.extra](https://github.com/nvim-mini/mini.extra) - would add in extra pickers for mini pick. This would give tree sitter nodes and LSP references, which would be nice
+
+* [nvim-mini/mini.ai](https://github.com/nvim-mini/mini.ai) - as I get used to normal textobject commands like ib, ab, iB, and aB, this could provide more text object commands that make use of treesitter info to grab everything inside a function for example. This would also be extended by mini.extra
+
+* [nvim-mini/mini.hipatterns](https://github.com/nvim-mini/mini.hipatterns) - a potential way to highlight todo tags, if I need that. Would also get some extension from mini.extra
